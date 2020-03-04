@@ -106,7 +106,7 @@ docker image load -i server_video.tar
 ##### Clone this github repositoy
 
 ```
-git clone https://github.com/teamfacex/docker-sdk.git
+git clone https://github.com/teamfacex/docker_search.git
 ```
 
 change directory to search or video+search based on your requirement.
