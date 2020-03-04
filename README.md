@@ -331,36 +331,34 @@ change this to user id given in the email
 #### Optional-Setup NVIDIA  & CUDA  
 ##### Ubuntu
 Making GPUs accessible in Docker Instance, for GPU accelerated docker instances.
+Install nvidia-docker2 package for gpu acceleration.
 
 ```
-# Add the package repositories
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+  sudo apt-key add -
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
 
-sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+sudo apt-get install nvidia-docker2
+sudo pkill -SIGHUP dockerd
 sudo systemctl restart docker
 
-###########################TESTING###########################
-#Optional
-#Testing GPUs are accessible
-docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
-#Testing if CUDA is working
-nvidia-docker run  --rm nvidia/cuda nvcc  -V
-
-#############################################################
-```
-
-to the startup script add following arguments in runDocker
 
 ```
---gpus all
-```
 
-to get CUDA mounted, add following to docker run in runDocker
+to the compose file add following flag to set nvidia runtime in docker.
 
 ```
--v /usr/local/cuda:/usr/local/cuda
+runtime: nvidia
+```
+
+to get CUDA mounted, add following to volumes:
+
+```
+volumes:
+- /usr/local/cuda:/usr/local/cuda
 ```
 
 ## Website 
