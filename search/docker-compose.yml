@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  server_search:
+    ports:
+      - '5000:5000'
+    environment:
+      - USER=user1234
+    volumes:
+      - 'datavol-server:/sdk'
+      - '${PWD}/data:/sdk/data'
+      - '${PWD}/bulk:/sdk/bulk'
+      - '${PWD}/log:/sdk/log'
+    image: 'server_search:latest'
+    depends_on:
+      - data-wrangler
+  data-wrangler:
+    build: ../data_wrangler
+    ports:
+      - '80:80'
+    volumes:
+      - '${PWD}/wrangler:/docker-flask/data'
+    container_name: wrangler
+volumes:
+  datavol-server:

@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+  server_video:
+    devices:
+     - '/dev/video0:/dev/video0'
+        
+    environment:
+     - DISPLAY=$DISPLAY
+     - XAUTHORITY=/tmp/.docker.xauth
+     - URL=0
+     - USER=user1234
+    volumes:
+     - '/tmp/.X11-unix:/tmp/.X11-unix'
+     - '/tmp/.docker.xauth:/tmp/.docker.xauth'
+     - '${PWD}/images:/sdk/upload1'
+     - 'datavol-detector:/sdk'
+    image: 'server_video:latest'
+    depends_on:
+     - server_search
+  server_search:
+    ports:
+      - '5000:5000'
+    environment:
+      - USER=user1234
+    volumes:
+      - 'datavol-server:/sdk'
+      - '${PWD}/data:/sdk/data'
+      - '${PWD}/bulk:/sdk/bulk'
+      - '${PWD}/log:/sdk/log'
+    image: 'server_search:latest'
+    depends_on:
+      - data-wrangler
+  data-wrangler:
+    build: ../data_wrangler
+    ports:
+      - '80:80'
+    volumes:
+      - '${PWD}/wrangler:/docker-flask/data'
+    container_name: wrangler
+volumes:
+  datavol-detector:
+  datavol-server:
