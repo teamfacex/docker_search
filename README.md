@@ -164,7 +164,7 @@ This instance exposes following apis
 
 * find_user - http://0.0.0.0:5000/find_user
 
-* get_user_count - http://0.0.0.0:5000/get_count
+* get_count - http://0.0.0.0:5000/get_count
 
 * init - http://0.0.0.0:5000/init
 
@@ -269,7 +269,7 @@ url: http://0.0.0.0:5000/init
 use: to  initialise the search object after adding images to database. Searching for newly added images will only work after this get request is called.
 ```
 
-* get_user_count
+* get_count
 
 ```
 request type: GET
