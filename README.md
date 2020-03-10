@@ -211,7 +211,7 @@ note:
 request type: GET
 url: http://0.0.0.0:5000/add_user_bulk
 
-use: to bulk add images stored in image.
+use: to add images stored in $PWD/bulk directory to the database.
 
 note: 
     -faces in images should be tightly cropped
