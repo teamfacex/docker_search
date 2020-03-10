@@ -185,8 +185,8 @@ use: to save a face for future searching.
 
 note: 
     -data stored in $PWD/data/data.db
-    -if name is not unique it will overwrite existing data.
     -param det=1 will find and crop the first detected face in the input image
+    -multiple images of the same user can be added by posting images with the same 'name';
 ```
 
 * delete_user
@@ -203,7 +203,6 @@ use: to delete set of images stored under a single users name.
 
 note: 
     -data stored in $PWD/data/data.db
-    -if name is not unique it will overwrite existing data.
 ```
 
 * add_user_bulk
@@ -212,13 +211,12 @@ note:
 request type: GET
 url: http://0.0.0.0:5000/add_user_bulk
 
-use: to save a multiple face for future searching.
+use: to bulk add images stored in image.
 
 note: 
     -faces in images should be tightly cropped
     -images should be stored in $PWD/bulk
     -images to be stored should be uniquely named as per the person's name it belongs to
-    -if name is not unique it will overwrite thte existing data
     -every file in the directory must be an image file
     -data is stored in $PWD/data/data.db
     -when processing is done each image will be removed from the directory
